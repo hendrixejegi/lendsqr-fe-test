@@ -1,0 +1,86 @@
+.auth-container {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  min-height: 100vh;
+}
+
+.auth-container > div {
+  background-image: url('/auth-layout.png');
+  background-repeat: no-repeat;
+  background-position: center center;
+
+  & img {
+    position: relative;
+    top: 106px;
+    left: 97px;
+  }
+}
+
+.auth-container > main {
+  place-content: center;
+}
+
+.login-form {
+  max-width: 447px;
+  margin-inline: auto;
+  h1 {
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: $primary;
+    line-height: 1;
+    margin-bottom: 1rem;
+  }
+
+  p {
+    font-size: 1.25rem;
+    line-height: 1;
+    color: $secondary;
+  }
+}
+
+.login-form--inputs {
+  margin-top: 60px;
+
+  & > *:not(:last-child) {
+    margin-bottom: 24px;
+  }
+
+  & > p {
+    font-size: 0.75rem;
+    letter-spacing: 1px;
+    font-weight: 600;
+    line-height: 1;
+    color: $accent;
+    text-transform: uppercase;
+  }
+}
+
+.password-input {
+  width: 100%;
+  position: relative;
+
+  button {
+    text-transform: uppercase;
+    width: fit-content;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    right: 0;
+    z-index: 10;
+  }
+}
+
+.login-form--submit {
+  margin-top: 45px;
+}
+
+@media screen and (width <= 769px) {
+  .auth-container {
+    grid-template-columns: 1fr;
+    padding: 1rem;
+
+    & > div {
+      background: none;
+    }
+  }
+}
