@@ -1,15 +1,47 @@
 import '@/scss/AuthLayout.scss';
 
+import { zodResolver } from '@hookform/resolvers/zod';
 import { useState } from 'react';
+import { type SubmitHandler, useForm } from 'react-hook-form';
+import { toast } from 'sonner';
+import * as z from 'zod';
 
 import logo from '@/assets/lendsqr-logo.svg';
 
 import { Button } from '../ui/button';
 import { Input } from '../ui/input';
 
-export const AuthLayout = () => {
-  const [type, setType] = useState('password');
+type Inputs = {
+  email: string;
+  password: string;
+};
 
+const LoginSchema = z.object({
+  email: z.email(),
+  password: z.string().min(1, 'Please enter your password'),
+});
+
+export const AuthLayout = () => {
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+    reset,
+  } = useForm<Inputs>({ resolver: zodResolver(LoginSchema) });
+
+  const onSubmit: SubmitHandler<Inputs> = (data) => {
+    const { email, password } = data;
+
+    if (email === 'testadmin@mail.com' && password === '12345678') {
+      reset();
+      toast.success('Log in success', { style: { color: 'green' } });
+      // route to dashboard
+    } else {
+      toast.error('Incorrect email or password', { style: { color: 'red' } });
+    }
+  };
+
+  const [type, setType] = useState('password');
   const handleTypeChange = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
 
@@ -31,30 +63,53 @@ export const AuthLayout = () => {
         />
       </div>
       <main>
-        <form action="" id="login-form" className="login-form">
+        <form
+          onSubmit={handleSubmit(onSubmit)}
+          id="login-form"
+          className="login-form"
+          noValidate
+        >
           <h1>Welcome</h1>
           <p>Enter details to login.</p>
 
           <div className="login-form--inputs">
-            <Input
-              type="email"
-              name="email"
-              id="email"
-              placeholder="Email"
-              aria-label="Email"
-            />
-
-            <div className="password-input">
+            <div>
               <Input
-                type={type}
-                name="password"
-                id="password"
-                placeholder="Password"
-                aria-label="Password"
+                {...register('email')}
+                type="email"
+                id="email"
+                placeholder="Email"
+                aria-label="Email"
+                aria-invalid={errors.email ? 'true' : 'false'}
               />
-              <Button variant="ghost" onClick={handleTypeChange}>
-                {type === 'password' ? 'show' : 'hide'}
-              </Button>
+
+              {errors.email && (
+                <p className="invalid-message" role="alert">
+                  {errors.email.message}
+                </p>
+              )}
+            </div>
+
+            <div>
+              <div className="password-input">
+                <Input
+                  {...register('password')}
+                  type={type}
+                  id="password"
+                  placeholder="Password"
+                  aria-label="Password"
+                  aria-invalid={errors.password ? 'true' : 'false'}
+                />
+                <Button variant="ghost" onClick={handleTypeChange}>
+                  {type === 'password' ? 'show' : 'hide'}
+                </Button>
+              </div>
+
+              {errors.password && (
+                <p className="invalid-message" role="alert">
+                  {errors.password.message}
+                </p>
+              )}
             </div>
 
             <p>Forgot Password?</p>
