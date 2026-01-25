@@ -3,13 +3,15 @@ import '@/scss/AuthLayout.scss';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useState } from 'react';
 import { type SubmitHandler, useForm } from 'react-hook-form';
+import { useNavigate } from 'react-router';
 import { toast } from 'sonner';
 import * as z from 'zod';
 
 import logo from '@/assets/lendsqr-logo.svg';
 
-import { Button } from '../ui/button';
-import { Input } from '../ui/input';
+import { useAuth } from './AuthProvider';
+import { Button } from './ui/button';
+import { Input } from './ui/input';
 
 type Inputs = {
   email: string;
@@ -22,6 +24,8 @@ const LoginSchema = z.object({
 });
 
 export const AuthLayout = () => {
+  const { signIn } = useAuth();
+  const navigate = useNavigate();
   const {
     register,
     handleSubmit,
@@ -33,9 +37,10 @@ export const AuthLayout = () => {
     const { email, password } = data;
 
     if (email === 'testadmin@mail.com' && password === '12345678') {
-      reset();
+      signIn();
       toast.success('Log in success', { style: { color: 'green' } });
-      // route to dashboard
+      reset();
+      navigate('/dashboard');
     } else {
       toast.error('Incorrect email or password', { style: { color: 'red' } });
     }
