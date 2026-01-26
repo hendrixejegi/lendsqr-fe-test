@@ -33,11 +33,37 @@ $py: 14px;
   background: transparent;
   text-decoration: none;
   color: $primary;
-  opacity: 0.5;
+  opacity: 0.7;
+}
+
+.dashboard--link-active {
+  opacity: 1;
+  position: relative;
+  isolation: isolate;
+
+  &::before {
+    position: absolute;
+    content: '';
+    background: $accent;
+    inset: 0;
+    z-index: -10;
+    opacity: 0.1;
+  }
+
+  &::after {
+    position: absolute;
+    content: '';
+    background: $accent;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 3px;
+  }
 }
 
 .sidebar--group-label {
   padding-inline: $px;
+  padding-block: 10px;
   color: $primary;
   font-size: 1rem;
   font-weight: 500;

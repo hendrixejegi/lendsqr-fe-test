@@ -90,7 +90,10 @@ const LinkGroup = ({ title, list }: { title: string; list: SidebarLink[] }) => {
       <ul className="sidebar--group--links">
         {list.map(([name, Icon, path]) => (
           <li key={name}>
-            <Link to={path} className="dashboard--link">
+            <Link
+              to={path}
+              className={`dashboard--link ${path === '/dashboard/users' ? 'dashboard--link-active' : null}`}
+            >
               <Icon aria-hidden="true" />
               <span>{name}</span>
             </Link>

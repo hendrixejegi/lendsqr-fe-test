@@ -38,7 +38,7 @@ export const AuthLayout = () => {
       signIn();
       toast.success('Log in success', { style: { color: 'green' } });
       reset();
-      navigate('/dashboard');
+      navigate('/dashboard/users');
     } else {
       toast.error('Incorrect email or password', { style: { color: 'red' } });
     }

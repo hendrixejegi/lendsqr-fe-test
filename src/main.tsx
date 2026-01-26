@@ -10,6 +10,7 @@ import { AuthLayout } from './components/AuthLayout.tsx';
 import AuthProvider from './components/AuthProvider.tsx';
 import { DashboardLayout } from './components/DashboardLayout.tsx';
 import { ProtectedRoute } from './components/ProtectedRoute.tsx';
+import { UserLayout } from './components/UserLayout.tsx';
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
@@ -25,7 +26,9 @@ createRoot(document.getElementById('root')!).render(
                   <DashboardLayout />
                 </ProtectedRoute>
               }
-            ></Route>
+            >
+              <Route index path="users" element={<UserLayout />} />
+            </Route>
           </Route>
         </Routes>
       </BrowserRouter>
