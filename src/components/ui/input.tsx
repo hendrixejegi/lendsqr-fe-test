@@ -1,4 +1,4 @@
-import '@/scss/ui/input.scss';
+import '@/scss/input.scss';
 
 import type { InputHTMLAttributes } from 'react';
 

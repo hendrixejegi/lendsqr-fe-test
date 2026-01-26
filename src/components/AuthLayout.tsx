@@ -117,7 +117,7 @@ export const AuthLayout = () => {
               )}
             </div>
 
-            <p>Forgot Password?</p>
+            <a href="#">Forgot Password?</a>
           </div>
 
           <div className="login-form--submit">

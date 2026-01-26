@@ -1,4 +1,4 @@
-import '@/scss/ui/button.scss';
+import '@/scss/button.scss';
 
 import { useMemo } from 'react';
 

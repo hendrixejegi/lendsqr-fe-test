@@ -45,13 +45,14 @@
     margin-bottom: 24px;
   }
 
-  & > p {
+  & > a {
     font-size: 0.75rem;
     letter-spacing: 1px;
     font-weight: 600;
     line-height: 1;
     color: $accent;
     text-transform: uppercase;
+    text-decoration: none;
   }
 }
 
@@ -63,8 +64,7 @@
     text-transform: uppercase;
     width: fit-content;
     position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
+    top: 0;
     right: 0;
     z-index: 10;
   }
