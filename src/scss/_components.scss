@@ -1,0 +1,51 @@
+@use './library' as *;
+
+// Button
+.button {
+  @extend %flex-center;
+
+  height: 50px;
+  padding-inline: 1rem;
+  border-radius: 5px;
+  border: 2px solid;
+  font-size: 0.875rem;
+  font-weight: 600;
+  line-height: 1;
+  width: 100%;
+  letter-spacing: 1px;
+  cursor: pointer;
+
+  gap: 8px;
+
+  &--primary {
+    background: $accent;
+    color: #ffffff;
+    border: $accent;
+  }
+
+  &--outlined {
+    background-color: transparent;
+    border: $primary;
+    color: $primary;
+  }
+
+  &--ghost {
+    background: transparent;
+    border: transparent;
+    color: $accent;
+  }
+}
+
+// Input
+.input {
+  width: 100%;
+  height: 50px;
+  border: #545f7d26 2px solid;
+  border-radius: 5px;
+  padding-inline: 1rem;
+  color: $primary;
+
+  &::placeholder {
+    color: $secondary;
+  }
+}

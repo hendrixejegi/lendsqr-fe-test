@@ -10,13 +10,12 @@
 }
 
 .dashboard--header {
+  @extend %items-center;
   grid-area: header;
 
   padding-block: 30px;
   padding-inline: 1.5rem;
 
-  display: flex;
-  align-items: center;
   justify-content: space-between;
   box-shadow: 3px 0px 20px 0px rgba(0, 0, 0, 0.04);
 
@@ -37,8 +36,7 @@
   }
 
   &--user {
-    display: flex;
-    align-items: center;
+    @extend %items-center;
     gap: 1rem;
 
     a,
@@ -49,17 +47,12 @@
   }
 
   & .user--profile-settings {
-    display: flex;
-    align-items: center;
+    @extend %items-center;
 
     img {
       border-radius: 50%;
     }
   }
-}
-
-.dashboard--sidebar {
-  grid-area: sidebar;
 }
 
 .dashboard--view {

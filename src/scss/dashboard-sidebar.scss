@@ -1,0 +1,44 @@
+$px: 30px;
+$py: 14px;
+
+.dashboard--sidebar {
+  grid-area: sidebar;
+  background: rgba(255, 255, 255, 1);
+  box-shadow: 0px 10px 20px 0px rgba(0, 0, 0, 0.04);
+  overflow-y: scroll;
+  scrollbar-width: thin;
+
+  > *:not(:last-child) {
+    margin-bottom: 8px;
+  }
+}
+
+.organization button {
+  @extend %items-center;
+  gap: 8px;
+  background: transparent;
+  border: none;
+  color: $primary;
+  cursor: pointer;
+  padding-inline: $px;
+  padding-block: $py;
+  width: 100%;
+}
+
+.dashboard--link {
+  @extend %items-center;
+  gap: 8px;
+  padding-inline: $px;
+  padding-block: $py;
+  background: transparent;
+  text-decoration: none;
+  color: $primary;
+  opacity: 0.5;
+}
+
+.sidebar--group-label {
+  padding-inline: $px;
+  color: $primary;
+  font-size: 1rem;
+  font-weight: 500;
+}

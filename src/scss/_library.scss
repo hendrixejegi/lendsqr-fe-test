@@ -1,0 +1,21 @@
+// Colors
+$primary: #213f7d;
+$secondary: #545f7d;
+$accent: #39cdcc;
+$pending: #e9b200;
+$error: #e4033b;
+
+// Placeholders
+%flex {
+  display: flex;
+}
+
+%items-center {
+  @extend %flex;
+  align-items: center;
+}
+
+%flex-center {
+  @extend %items-center;
+  justify-content: center;
+}

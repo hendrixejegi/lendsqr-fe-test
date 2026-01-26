@@ -1,5 +1,3 @@
-import './scss/App.scss';
-
 import { Outlet } from 'react-router';
 
 function App() {

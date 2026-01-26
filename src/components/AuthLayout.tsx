@@ -10,8 +10,6 @@ import * as z from 'zod';
 import logo from '@/assets/lendsqr-logo.svg';
 
 import { useAuth } from './AuthProvider';
-import { Button } from './ui/button';
-import { Input } from './ui/input';
 
 type Inputs = {
   email: string;
@@ -79,13 +77,14 @@ export const AuthLayout = () => {
 
           <div className="login-form--inputs">
             <div>
-              <Input
+              <input
                 {...register('email')}
                 type="email"
                 id="email"
                 placeholder="Email"
                 aria-label="Email"
                 aria-invalid={errors.email ? 'true' : 'false'}
+                className="input"
               />
 
               {errors.email && (
@@ -97,17 +96,21 @@ export const AuthLayout = () => {
 
             <div>
               <div className="password-input">
-                <Input
+                <input
                   {...register('password')}
                   type={type}
                   id="password"
                   placeholder="Password"
                   aria-label="Password"
                   aria-invalid={errors.password ? 'true' : 'false'}
+                  className="input"
                 />
-                <Button variant="ghost" onClick={handleTypeChange}>
+                <button
+                  className="button button--ghost"
+                  onClick={handleTypeChange}
+                >
                   {type === 'password' ? 'show' : 'hide'}
-                </Button>
+                </button>
               </div>
 
               {errors.password && (
@@ -121,7 +124,7 @@ export const AuthLayout = () => {
           </div>
 
           <div className="login-form--submit">
-            <Button variant="primary">LOG IN</Button>
+            <button className="button button--primary">LOG IN</button>
           </div>
         </form>
       </main>
