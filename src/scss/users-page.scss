@@ -1,0 +1,76 @@
+%user-page-box {
+  background: #ffffff;
+  border: 1px solid rgba(33, 63, 125, 0.06);
+  box-shadow: 3px 5px 20px 0px rgba(0, 0, 0, 0.04);
+  border-radius: 4px;
+}
+
+.users-page > *:not(:last-child) {
+  margin-bottom: 40px;
+}
+
+.users-page h1 {
+  font-size: 1.5rem;
+  font-weight: 500;
+  color: $primary;
+}
+
+.users-page--summary {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 25px;
+}
+
+.users-page--summary > div {
+  @extend %user-page-box;
+
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  padding: 20px 30px;
+}
+
+.summary > span {
+  color: $primary;
+  line-height: 1;
+}
+
+.summary .summary--name {
+  text-transform: uppercase;
+  font-weight: 500;
+}
+
+.summary .summary--value {
+  font-size: 1.5rem;
+  font-weight: 600;
+}
+
+.users-page--table {
+  @extend %user-page-box;
+  padding-inline: 30px;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+
+  th,
+  td {
+    text-align: start;
+    color: $primary;
+    padding-block: 20px;
+  }
+
+  th {
+    font-weight: 600;
+  }
+
+  tbody tr:not(:last-child) {
+    border-bottom: 1px solid rgba(33, 63, 125, 0.1);
+  }
+}
+
+thead .table-head {
+  @extend %items-center;
+  gap: 8px;
+}

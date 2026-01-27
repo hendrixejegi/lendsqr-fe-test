@@ -1,4 +1,4 @@
-import '@/scss/AuthLayout.scss';
+import '@/scss/auth-layout.scss';
 
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useState } from 'react';
