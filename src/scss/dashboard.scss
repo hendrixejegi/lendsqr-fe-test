@@ -59,4 +59,6 @@
 .dashboard--view {
   grid-area: view;
   padding: 60px;
+  overflow-y: scroll;
+  scrollbar-width: thin;
 }
