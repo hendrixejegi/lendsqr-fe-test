@@ -74,3 +74,46 @@ thead .table-head {
   @extend %items-center;
   gap: 8px;
 }
+
+[class^='status-'] {
+  padding: 8px 14px;
+  border-radius: 100px;
+  text-align: center;
+  text-transform: capitalize;
+}
+
+.status-active {
+  background-color: rgba(84, 95, 125, 0.1);
+  color: rgba(84, 95, 125, 1);
+}
+
+.status-blacklisted {
+  background-color: rgba(228, 3, 59, 0.1);
+  color: rgba(228, 3, 59, 1);
+}
+
+.status-pending {
+  background-color: rgba(233, 178, 0, 0.1);
+  color: rgba(233, 178, 0, 1);
+}
+
+.pagination-container {
+  @extend %items-center;
+  justify-content: space-between;
+  color: $primary;
+  margin-top: 20px;
+
+  .current-count {
+    @extend %items-center;
+    gap: 10px;
+
+    span {
+      @extend %flex-center;
+      gap: 18px;
+      height: 30px;
+      width: 100px;
+      background: rgba(33, 63, 125, 0.1);
+      border-radius: 4px;
+    }
+  }
+}

@@ -1,0 +1,43 @@
+$size: 24px;
+
+.pagination--list {
+  @extend %items-center;
+  gap: 8px;
+}
+
+.page-link {
+  display: inline-block;
+  width: $size;
+  height: $size;
+  text-align: center;
+}
+
+.pagination--button {
+  @extend %flex-center;
+  width: $size;
+  height: $size;
+  background-color: rgba(33, 63, 125, 0.1);
+  border-radius: 4px;
+  color: rgba(33, 63, 125, 0.5);
+
+  & > a {
+    @extend %flex-center;
+  }
+
+  &:not(:disabled):hover {
+    color: rgba(33, 63, 125, 1);
+  }
+
+  &:disabled {
+    cursor: not-allowed;
+  }
+}
+
+.page-item {
+  color: rgba(84, 95, 125, 0.7);
+  cursor: pointer;
+}
+
+.page-item.active {
+  color: $primary;
+}

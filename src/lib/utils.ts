@@ -1,4 +1,9 @@
-export const formatNum = (foo: number) => new Intl.NumberFormat().format(foo);
+import dayjs from 'dayjs';
+import localizedFormat from 'dayjs/plugin/localizedFormat';
+
+export const formatNum = (foo: number) => {
+  return new Intl.NumberFormat().format(foo);
+};
 
 export async function fetchJson<T>(
   url: string,
@@ -13,6 +18,7 @@ export async function fetchJson<T>(
   return res.json() as Promise<T>;
 }
 
-export function countActiveUsers(arr: User[]) {
-  return arr.filter((user) => user.status === 'active').length;
-}
+export const formatDate = (foo: string) => {
+  dayjs.extend(localizedFormat);
+  return dayjs(foo).format('lll');
+};

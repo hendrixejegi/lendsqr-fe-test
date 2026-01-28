@@ -1,4 +1,4 @@
-type Status = 'active' | 'inactive' | 'pending';
+type Status = 'active' | 'blacklisted' | 'pending';
 
 type AccountDetails = {
   number: string;
