@@ -85,34 +85,32 @@ export const UsersTable = () => {
                 </div>
               </th>
               {!isMobile && !isTablet && (
-                <th>
-                  <div className="table-head">
-                    <span>Email</span>
-                    <button popoverTarget="table-filter">
-                      <ListFilter size={18} />
-                    </button>
-                  </div>
-                </th>
-              )}
-              {!isMobile && !isTablet && (
-                <th>
-                  <div className="table-head">
-                    <span>Phone Number</span>
-                    <button popoverTarget="table-filter">
-                      <ListFilter size={18} />
-                    </button>
-                  </div>
-                </th>
-              )}
-              {!isMobile && !isTablet && (
-                <th>
-                  <div className="table-head">
-                    <span>Date Joined</span>
-                    <button popoverTarget="table-filter">
-                      <ListFilter size={18} />
-                    </button>
-                  </div>
-                </th>
+                <>
+                  <th>
+                    <div className="table-head">
+                      <span>Email</span>
+                      <button popoverTarget="table-filter">
+                        <ListFilter size={18} />
+                      </button>
+                    </div>
+                  </th>
+                  <th>
+                    <div className="table-head">
+                      <span>Phone Number</span>
+                      <button popoverTarget="table-filter">
+                        <ListFilter size={18} />
+                      </button>
+                    </div>
+                  </th>
+                  <th>
+                    <div className="table-head">
+                      <span>Date Joined</span>
+                      <button popoverTarget="table-filter">
+                        <ListFilter size={18} />
+                      </button>
+                    </div>
+                  </th>
+                </>
               )}
               <th>
                 <div className="table-head">

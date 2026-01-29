@@ -75,10 +75,12 @@ export const UserItem = ({ user }: { user: User }) => {
       {!isMobile && <td>{user.organization}</td>}
       <td>{user.f_name}</td>
       {!isMobile && !isTablet && (
-        <td title={user.email}>{slice(user.email, 15)}</td>
+        <>
+          <td title={user.email}>{slice(user.email, 15)}</td>
+          <td>{user.phone}</td>
+          <td>{formatDate(user.joined)}</td>
+        </>
       )}
-      {!isMobile && !isTablet && <td>{user.phone}</td>}
-      {!isMobile && !isTablet && <td>{formatDate(user.joined)}</td>}
       <td>
         <UserStatus status={user.status} />
       </td>
