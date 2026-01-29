@@ -35,6 +35,7 @@ interface User {
   gender: string;
   phone: string;
   email: string;
+  office_email: string;
   bvn: string;
   account: AccountDetails;
   relationship: string;
