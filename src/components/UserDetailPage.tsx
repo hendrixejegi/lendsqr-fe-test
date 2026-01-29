@@ -3,9 +3,11 @@ import '@/scss/user-detail-page.scss';
 import { MoveLeft } from 'lucide-react';
 import { useMemo } from 'react';
 import { Link, useParams } from 'react-router';
+import { toast } from 'sonner';
 
 import avatar from '@/assets/avatar.png';
 
+import { useData } from './DataProvider';
 import { EducationAndEmployment } from './user-detail/EducationAndEmployment';
 import { Guarantor } from './user-detail/Guarantor';
 import { PersonalInformation } from './user-detail/PersonalInformation';
@@ -14,13 +16,32 @@ import { TierStars } from './user-detail/TierStars';
 
 export const UserDetailPage = () => {
   const { userId } = useParams<{ userId: string }>();
+  const { data: userData, activateUser, blacklistUser } = useData();
 
   const data = useMemo(() => {
-    const localData = localStorage.getItem('lendsqr_user_data') as string;
-    const userData: User[] = JSON.parse(localData);
     const matching = userData.find((user) => user.id === userId);
     return matching;
-  }, [userId]);
+  }, [userId, userData]);
+
+  const handleAction = (action: 'activate' | 'blacklist', id?: string) => {
+    if (id === undefined) return;
+
+    if (action === 'activate') {
+      activateUser(id);
+      toast.success('User status updated successfully', {
+        style: { color: 'green' },
+      });
+      return;
+    }
+
+    if (action === 'blacklist') {
+      blacklistUser(id);
+      toast.success('User status updated successfully', {
+        style: { color: 'green' },
+      });
+      return;
+    }
+  };
 
   return (
     <div className="user-detail-page">
@@ -34,8 +55,12 @@ export const UserDetailPage = () => {
           <h1>User Details</h1>
 
           <div className="action-button">
-            <button>blacklist user</button>
-            <button>activate user</button>
+            <button onClick={() => handleAction('blacklist', data?.id)}>
+              blacklist user
+            </button>
+            <button onClick={() => handleAction('activate', data?.id)}>
+              activate user
+            </button>
           </div>
         </div>
       </header>

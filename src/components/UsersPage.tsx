@@ -1,21 +1,15 @@
 import '@/scss/users-page.scss';
 import '@/scss/pagination.scss';
 
-import { Suspense } from 'react';
-
-import { ErrorBoundary } from './ErrorBoundary';
-import { UserPageContent } from './user-page/UserPageContent';
+import { UsersSummaries } from './user-page/UserSummaries';
+import { UsersTable } from './user-page/UserTable';
 
 export const UsersPage = () => {
   return (
     <div className="users-page">
       <h1>Users</h1>
-
-      <ErrorBoundary fallback={<div>Error</div>}>
-        <Suspense fallback={<div>Loading...</div>}>
-          <UserPageContent />
-        </Suspense>
-      </ErrorBoundary>
+      <UsersSummaries />
+      <UsersTable />
     </div>
   );
 };

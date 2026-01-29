@@ -10,10 +10,12 @@ import ReactPaginate from 'react-paginate';
 
 import { useScreen } from '@/lib/hooks/useScreen';
 
+import { useData } from '../DataProvider';
 import { type FilterInputs, TableFilter } from './TableFilter';
 import { UserItem } from './UserItem';
 
-export const UsersTable = ({ userData }: { userData: User[] }) => {
+export const UsersTable = () => {
+  const { data: userData } = useData();
   const { isTablet, isMobile } = useScreen();
   // Pagination configuration
   const itemsPerPage = 20;

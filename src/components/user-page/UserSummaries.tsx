@@ -4,6 +4,8 @@ import Loan from '@/assets/user-page/users-loans.svg?react';
 import Savings from '@/assets/user-page/users-savings.svg?react';
 import { formatNum } from '@/lib/utils';
 
+import { useData } from '../DataProvider';
+
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 type UsersSummary = [React.ComponentType<any>, string, number];
 
@@ -19,7 +21,8 @@ const Summary = ({ summary }: { summary: UsersSummary }) => {
   );
 };
 
-export const UsersSummaries = ({ userData }: { userData: User[] }) => {
+export const UsersSummaries = () => {
+  const { data: userData } = useData();
   const totalUsers = userData.length;
 
   const activeUsers = userData.filter(

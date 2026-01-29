@@ -3,15 +3,19 @@ import '@/scss/user-item.scss';
 import { EllipsisVertical, Eye, UserCheck, UserX } from 'lucide-react';
 import { useEffect, useRef, useState } from 'react';
 import { useNavigate } from 'react-router';
+import { toast } from 'sonner';
 
 import { useScreen } from '@/lib/hooks/useScreen';
 import { formatDate, slice } from '@/lib/utils';
+
+import { useData } from '../DataProvider';
 
 const UserStatus = ({ status }: { status: Status }) => {
   return <div className={`status-${status}`}>{status}</div>;
 };
 
 export const UserItem = ({ user }: { user: User }) => {
+  const { activateUser, blacklistUser } = useData();
   const { isMobile, isTablet } = useScreen();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const menuRef = useRef<HTMLDivElement>(null);
@@ -39,12 +43,30 @@ export const UserItem = ({ user }: { user: User }) => {
     };
   }, [isMenuOpen]);
 
-  const handleMenuAction = (action: 'view' | 'blacklist' | 'activate') => {
-    console.log(`${action} for user:`, user.email);
+  const handleMenuAction = (
+    action: 'view' | 'blacklist' | 'activate',
+    id?: string,
+  ) => {
     setIsMenuOpen(false);
 
     if (action === 'view') {
-      navigate(`/dashboard/users/${user.id}`);
+      return navigate(`/dashboard/users/${user.id}`);
+    }
+
+    if (action === 'activate' && id !== undefined) {
+      activateUser(id);
+      toast.success('User status updated successfully', {
+        style: { color: 'green' },
+      });
+      return;
+    }
+
+    if (action === 'blacklist' && id !== undefined) {
+      blacklistUser(id);
+      toast.success('User status updated successfully', {
+        style: { color: 'green' },
+      });
+      return;
     }
   };
 
@@ -79,13 +101,13 @@ export const UserItem = ({ user }: { user: User }) => {
             </button>
             <button
               className="menu-item"
-              onClick={() => handleMenuAction('blacklist')}
+              onClick={() => handleMenuAction('blacklist', user.id)}
             >
               <UserX size={16} /> <span>Blacklist User</span>
             </button>
             <button
               className="menu-item"
-              onClick={() => handleMenuAction('activate')}
+              onClick={() => handleMenuAction('activate', user.id)}
             >
               <UserCheck size={16} /> <span>Activate User</span>
             </button>
@@ -95,21 +117,3 @@ export const UserItem = ({ user }: { user: User }) => {
     </tr>
   );
 };
-
-// export const UserItem = ({ user }: { user: User }) => {
-//   return (
-//     <tr>
-//       <td>{user.organization}</td>
-//       <td>{user.f_name}</td>
-//       <td>{user.email}</td>
-//       <td>{user.phone}</td>
-//       <td>{formatDate(user.joined)}</td>
-//       <td>
-//         <UserStatus status={user.status} />
-//       </td>
-//       <td>
-//         <EllipsisVertical />
-//       </td>
-//     </tr>
-//   );
-// };
