@@ -54,6 +54,10 @@ table {
   width: 100%;
   border-collapse: collapse;
 
+  thead {
+    anchor-name: --filter-anchor;
+  }
+
   th,
   td {
     text-align: start;
@@ -73,6 +77,11 @@ table {
 thead .table-head {
   @extend %items-center;
   gap: 8px;
+
+  button {
+    @extend %flex-center;
+    color: $primary;
+  }
 }
 
 [class^='status-'] {

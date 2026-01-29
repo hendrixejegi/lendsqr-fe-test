@@ -1,0 +1,64 @@
+.table-filter {
+  position-anchor: --filter-anchor;
+
+  position: absolute;
+  margin: 0;
+  inset: 0;
+  width: 270px;
+  padding: 20px;
+  background: #ffffff;
+  border: 1px solid rgba(84, 95, 125, 0.14);
+  border-radius: 4px;
+  box-shadow: 3px 5px 20px 0px rgba(0, 0, 0, 0.04);
+}
+
+.table-filter:popover-open {
+  top: calc(anchor(bottom) - 20px);
+  left: anchor(left);
+}
+
+.table-filter > form {
+  margin-bottom: 30px;
+
+  & > *:not(:last-child) {
+    margin-bottom: 20px;
+  }
+}
+
+.table-filter > div {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 14px;
+
+  & > button {
+    height: 40px;
+    border-radius: 8px;
+  }
+
+  & > button:first-child {
+    color: rgba(84, 95, 125, 1);
+    border-color: rgba(84, 95, 125, 1);
+  }
+
+  & > button:last-child {
+    background-color: rgba(57, 205, 204, 1);
+    border-color: rgba(57, 205, 204, 1);
+    color: #ffffff;
+  }
+}
+
+.input-container {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+
+  label {
+    color: $primary;
+  }
+
+  input,
+  select {
+    height: 40px;
+    border-radius: 8px;
+  }
+}

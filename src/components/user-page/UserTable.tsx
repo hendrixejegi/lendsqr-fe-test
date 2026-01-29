@@ -1,3 +1,4 @@
+import * as _ from 'lodash';
 import {
   ChevronDown,
   ChevronLeft,
@@ -5,10 +6,12 @@ import {
   EllipsisVertical,
   ListFilter,
 } from 'lucide-react';
-import { useState } from 'react';
+import { useMemo, useState } from 'react';
 import ReactPaginate from 'react-paginate';
 
 import { formatDate } from '@/lib/utils';
+
+import { type FilterInputs, TableFilter } from './TableFilter';
 
 const tableHeaders = [
   'Organization',
@@ -24,15 +27,46 @@ const UserStatus = ({ status }: { status: Status }) => {
 };
 
 export const UsersTable = ({ userData }: { userData: User[] }) => {
+  // Pagination configuration
   const itemsPerPage = 20;
   const [itemsOffset, setItemOffset] = useState(0);
   const endOffset = itemsOffset + itemsPerPage;
-  const currentItems = userData.slice(itemsOffset, endOffset);
-  const pageCount = Math.ceil(userData.length / itemsPerPage);
+
+  const uniqueOrganization = _.uniqBy(userData, 'organization').map(
+    (user) => user.organization,
+  );
+
+  const [filter, setFilter] = useState<FilterInputs>({
+    date: '',
+    email: '',
+    organization: '',
+    status: '',
+    tel: '',
+    username: '',
+  });
+
+  const filteredData = useMemo(() => {
+    return userData.filter((user) => {
+      return (
+        (filter.organization === '' ||
+          user.organization === filter.organization) &&
+        (filter.status === '' || user.status === filter.status) &&
+        (filter.email === '' ||
+          user.email?.toLowerCase().includes(filter.email.toLowerCase())) &&
+        (filter.username === '' ||
+          user.f_name?.toLowerCase().includes(filter.username.toLowerCase())) &&
+        (filter.tel === '' || user.phone?.includes(filter.tel)) &&
+        (filter.date === '' || user.joined === filter.date)
+      );
+    });
+  }, [filter, userData]);
+
+  const currentItems = filteredData.slice(itemsOffset, endOffset);
+  const pageCount = Math.ceil(filteredData.length / itemsPerPage);
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const handlePageClick = (event: any) => {
-    const newOffset = (event.selected * itemsPerPage) % userData.length;
+    const newOffset = (event.selected * itemsPerPage) % filteredData.length;
     setItemOffset(newOffset);
   };
 
@@ -46,7 +80,9 @@ export const UsersTable = ({ userData }: { userData: User[] }) => {
                 <th key={header}>
                   <div className="table-head">
                     <span>{header}</span>
-                    <ListFilter />
+                    <button popoverTarget="table-filter">
+                      <ListFilter />
+                    </button>
                   </div>
                 </th>
               ))}
@@ -98,6 +134,13 @@ export const UsersTable = ({ userData }: { userData: User[] }) => {
           activeClassName="active"
         />
       </div>
+      <TableFilter
+        organizations={uniqueOrganization}
+        updateFilters={(data: FilterInputs) => {
+          setFilter(data);
+          setItemOffset(0);
+        }}
+      />
     </div>
   );
 };
