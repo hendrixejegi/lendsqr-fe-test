@@ -4,13 +4,15 @@ import { EllipsisVertical, Eye, UserCheck, UserX } from 'lucide-react';
 import { useEffect, useRef, useState } from 'react';
 import { useNavigate } from 'react-router';
 
-import { formatDate } from '@/lib/utils';
+import { useScreen } from '@/lib/hooks/useScreen';
+import { formatDate, slice } from '@/lib/utils';
 
 const UserStatus = ({ status }: { status: Status }) => {
   return <div className={`status-${status}`}>{status}</div>;
 };
 
 export const UserItem = ({ user }: { user: User }) => {
+  const { isMobile, isTablet } = useScreen();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const menuRef = useRef<HTMLDivElement>(null);
   const buttonRef = useRef<HTMLButtonElement>(null);
@@ -48,11 +50,13 @@ export const UserItem = ({ user }: { user: User }) => {
 
   return (
     <tr className="user-row">
-      <td>{user.organization}</td>
+      {!isMobile && <td>{user.organization}</td>}
       <td>{user.f_name}</td>
-      <td>{user.email}</td>
-      <td>{user.phone}</td>
-      <td>{formatDate(user.joined)}</td>
+      {!isMobile && !isTablet && (
+        <td title={user.email}>{slice(user.email, 15)}</td>
+      )}
+      {!isMobile && !isTablet && <td>{user.phone}</td>}
+      {!isMobile && !isTablet && <td>{formatDate(user.joined)}</td>}
       <td>
         <UserStatus status={user.status} />
       </td>

@@ -1,7 +1,9 @@
 import '@/scss/dashboard-sidebar.scss';
 
-import { ChevronDown } from 'lucide-react';
-import { Link } from 'react-router';
+import classNames from 'classnames';
+import { ChevronDown, ChevronRight } from 'lucide-react';
+import { useState } from 'react';
+import { Link, useNavigate } from 'react-router';
 
 import Fee from '@/assets/icons/badge-percent.svg?react';
 import Bank from '@/assets/icons/bank.svg?react';
@@ -17,12 +19,14 @@ import Savings from '@/assets/icons/piggy-bank.svg?react';
 import Loans from '@/assets/icons/sack.svg?react';
 import Settlement from '@/assets/icons/scroll.svg?react';
 import Preferences from '@/assets/icons/sliders.svg?react';
+import Tire from '@/assets/icons/tire.svg?react';
 import Transactions from '@/assets/icons/transactions.svg?react';
 import Whitelist from '@/assets/icons/user-check.svg?react';
 import ServiceAcct from '@/assets/icons/user-cog.svg?react';
 import Guarantors from '@/assets/icons/user-friends.svg?react';
 import Karma from '@/assets/icons/user-times.svg?react';
 import Users from '@/assets/icons/users.svg?react';
+import SignOut from '@/assets/sign-out.svg?react';
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 type SidebarLink = [string, React.ComponentType<any>, string];
@@ -56,37 +60,86 @@ const settingsLinkGroup: SidebarLink[] = [
   ['Preferences', Preferences, '/dashboard'],
   ['Fees and Pricing', Fee, '/dashboard'],
   ['Audit Logs', Audit, '/dashboard'],
+  ['System Messages', Tire, '/dashboard'],
 ];
 
 export const DashboardSidebar = () => {
+  const [sidebarView, setSidebarView] = useState<'full' | 'icon'>('full');
+  const spanClass = classNames({ 'show-icon': sidebarView === 'icon' });
+  const navigate = useNavigate();
+
+  const handleViewChange = () => {
+    if (sidebarView === 'full') {
+      setSidebarView('icon');
+      return;
+    }
+    setSidebarView('full');
+  };
+
+  const handleSignout = () => {
+    localStorage.removeItem('lendsqr-session');
+    localStorage.removeItem('lendsqr_user_data');
+    navigate('/');
+  };
+
   return (
     <nav className="dashboard--sidebar">
       <header>
         <div className="organization">
           <button>
             <Briefcase aria-hidden="true" />
-            <span>Switch Organization</span>
-            <ChevronDown />
+            <span className={spanClass}>Switch Organization</span>
+            <ChevronDown className={spanClass} />
           </button>
         </div>
+
+        <button className="toggle-button" onClick={handleViewChange}>
+          <ChevronRight />
+        </button>
       </header>
 
       <Link to="#" className="dashboard--link">
         <Home aria-hidden="true" />
-        <span>Dashboard</span>
+        <span className={spanClass}>Dashboard</span>
       </Link>
 
-      <LinkGroup title="Customers" list={customersLinkGroup} />
-      <LinkGroup title="Businesses" list={businessesLinkGroup} />
-      <LinkGroup title="Settings" list={settingsLinkGroup} />
+      <LinkGroup
+        title="Customers"
+        list={customersLinkGroup}
+        spanClass={spanClass}
+      />
+      <LinkGroup
+        title="Businesses"
+        list={businessesLinkGroup}
+        spanClass={spanClass}
+      />
+      <LinkGroup
+        title="Settings"
+        list={settingsLinkGroup}
+        spanClass={spanClass}
+      />
+
+      <div className="sidebar-footer">
+        <button className="dashboard--link" onClick={handleSignout}>
+          <SignOut /> <span className={spanClass}>Logout</span>
+        </button>
+      </div>
     </nav>
   );
 };
 
-const LinkGroup = ({ title, list }: { title: string; list: SidebarLink[] }) => {
+const LinkGroup = ({
+  title,
+  list,
+  spanClass,
+}: {
+  title: string;
+  list: SidebarLink[];
+  spanClass: string;
+}) => {
   return (
     <div className="sidebar--group">
-      <h2 className="sidebar--group-label">{title}</h2>
+      <h2 className={`sidebar--group-label ${spanClass}`}>{title}</h2>
       <ul className="sidebar--group--links">
         {list.map(([name, Icon, path]) => (
           <li key={name}>
@@ -95,7 +148,7 @@ const LinkGroup = ({ title, list }: { title: string; list: SidebarLink[] }) => {
               className={`dashboard--link ${path === '/dashboard/users' ? 'dashboard--link-active' : null}`}
             >
               <Icon aria-hidden="true" />
-              <span>{name}</span>
+              <span className={spanClass}>{name}</span>
             </Link>
           </li>
         ))}

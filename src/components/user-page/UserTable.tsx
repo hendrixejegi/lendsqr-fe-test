@@ -8,19 +8,13 @@ import {
 import { useMemo, useState } from 'react';
 import ReactPaginate from 'react-paginate';
 
+import { useScreen } from '@/lib/hooks/useScreen';
+
 import { type FilterInputs, TableFilter } from './TableFilter';
 import { UserItem } from './UserItem';
 
-const tableHeaders = [
-  'Organization',
-  'Username',
-  'Email',
-  'Phone Number',
-  'Date Joined',
-  'Status',
-];
-
 export const UsersTable = ({ userData }: { userData: User[] }) => {
+  const { isTablet, isMobile } = useScreen();
   // Pagination configuration
   const itemsPerPage = 20;
   const [itemsOffset, setItemOffset] = useState(0);
@@ -70,16 +64,62 @@ export const UsersTable = ({ userData }: { userData: User[] }) => {
         <table>
           <thead>
             <tr>
-              {tableHeaders.map((header) => (
-                <th key={header}>
+              {!isMobile && (
+                <th>
                   <div className="table-head">
-                    <span>{header}</span>
+                    <span>Organization</span>
                     <button popoverTarget="table-filter">
-                      <ListFilter />
+                      <ListFilter size={18} />
                     </button>
                   </div>
                 </th>
-              ))}
+              )}
+              <th>
+                <div className="table-head">
+                  <span>Username</span>
+                  <button popoverTarget="table-filter">
+                    <ListFilter size={18} />
+                  </button>
+                </div>
+              </th>
+              {!isMobile && !isTablet && (
+                <th>
+                  <div className="table-head">
+                    <span>Email</span>
+                    <button popoverTarget="table-filter">
+                      <ListFilter size={18} />
+                    </button>
+                  </div>
+                </th>
+              )}
+              {!isMobile && !isTablet && (
+                <th>
+                  <div className="table-head">
+                    <span>Phone Number</span>
+                    <button popoverTarget="table-filter">
+                      <ListFilter size={18} />
+                    </button>
+                  </div>
+                </th>
+              )}
+              {!isMobile && !isTablet && (
+                <th>
+                  <div className="table-head">
+                    <span>Date Joined</span>
+                    <button popoverTarget="table-filter">
+                      <ListFilter size={18} />
+                    </button>
+                  </div>
+                </th>
+              )}
+              <th>
+                <div className="table-head">
+                  <span>Status</span>
+                  <button popoverTarget="table-filter">
+                    <ListFilter size={18} />
+                  </button>
+                </div>
+              </th>
               <th></th>
             </tr>
           </thead>

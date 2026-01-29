@@ -22,3 +22,11 @@ export const formatDate = (foo: string) => {
   dayjs.extend(localizedFormat);
   return dayjs(foo).format('lll');
 };
+
+export const slice = (foo: string, length: number) => {
+  if (foo.length <= length) {
+    return foo;
+  }
+
+  return foo.slice(0, length - 2) + '...';
+};

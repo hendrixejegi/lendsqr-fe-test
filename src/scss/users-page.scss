@@ -111,6 +111,7 @@ thead .table-head {
   justify-content: space-between;
   color: $primary;
   margin-top: 20px;
+  gap: 16px;
 
   .current-count {
     @extend %items-center;
@@ -124,5 +125,21 @@ thead .table-head {
       background: rgba(33, 63, 125, 0.1);
       border-radius: 4px;
     }
+  }
+}
+
+@media screen and (max-width: 860px) {
+  .users-page--summary {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .pagination-container {
+    flex-direction: column;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .users-page--summary {
+    grid-template-columns: 1fr;
   }
 }

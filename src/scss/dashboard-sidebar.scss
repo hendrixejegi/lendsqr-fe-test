@@ -11,6 +11,24 @@ $py: 14px;
   > *:not(:last-child) {
     margin-bottom: 8px;
   }
+
+  anchor-name: --toggle-button;
+}
+
+.dashboard--sidebar .toggle-button {
+  @extend %flex-center;
+
+  width: 40px;
+  height: 40px;
+  border-radius: 100%;
+  position: absolute;
+  position-anchor: --toggle-button;
+  top: anchor(top);
+  right: anchor(right);
+  transform: translate(50%, 50%);
+  background: $primary;
+  color: #ffffff;
+  z-index: 10;
 }
 
 .organization button {
@@ -67,4 +85,13 @@ $py: 14px;
   color: $primary;
   font-size: 1rem;
   font-weight: 500;
+}
+
+.show-icon {
+  display: none;
+}
+
+.sidebar-footer {
+  margin-top: 16px;
+  border-top: 1px solid rgba(33, 63, 125, 0.1);
 }

@@ -1,7 +1,7 @@
 .dashboard {
   display: grid;
   height: 100vh;
-  grid-template-columns: minmax(200px, 283px) 1fr;
+  grid-template-columns: auto 1fr;
   grid-template-rows: auto 1fr;
   grid-template-areas:
     'header header'
@@ -13,6 +13,7 @@
 .dashboard--header {
   @extend %items-center;
   grid-area: header;
+  gap: 16px;
 
   padding-block: 30px;
   padding-inline: 1.5rem;
@@ -24,6 +25,7 @@
     width: 100%;
     max-width: 400px;
     position: relative;
+    flex-shrink: 1;
 
     button {
       position: absolute;
@@ -61,4 +63,23 @@
   padding: 60px;
   overflow-y: scroll;
   scrollbar-width: thin;
+}
+
+@media screen and (max-width: 860px) {
+  .dashboard--view {
+    padding: 16px;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .dashboard--header {
+    &--search,
+    &--user > a {
+      display: none;
+    }
+
+    &--user > div > button > span {
+      display: none;
+    }
+  }
 }
