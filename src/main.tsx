@@ -10,6 +10,7 @@ import { AuthLayout } from './components/AuthLayout.tsx';
 import AuthProvider from './components/AuthProvider.tsx';
 import { DashboardLayout } from './components/DashboardLayout.tsx';
 import { ProtectedRoute } from './components/ProtectedRoute.tsx';
+import { UserDetailPage } from './components/UserDetailPage.tsx';
 import { UsersPage } from './components/UsersPage.tsx';
 
 createRoot(document.getElementById('root')!).render(
@@ -28,6 +29,7 @@ createRoot(document.getElementById('root')!).render(
               }
             >
               <Route index path="users" element={<UsersPage />} />
+              <Route path="users/:userId" element={<UserDetailPage />} />
             </Route>
           </Route>
         </Routes>

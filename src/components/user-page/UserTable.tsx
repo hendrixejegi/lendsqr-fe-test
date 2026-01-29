@@ -3,15 +3,13 @@ import {
   ChevronDown,
   ChevronLeft,
   ChevronRight,
-  EllipsisVertical,
   ListFilter,
 } from 'lucide-react';
 import { useMemo, useState } from 'react';
 import ReactPaginate from 'react-paginate';
 
-import { formatDate } from '@/lib/utils';
-
 import { type FilterInputs, TableFilter } from './TableFilter';
+import { UserItem } from './UserItem';
 
 const tableHeaders = [
   'Organization',
@@ -21,10 +19,6 @@ const tableHeaders = [
   'Date Joined',
   'Status',
 ];
-
-const UserStatus = ({ status }: { status: Status }) => {
-  return <div className={`status-${status}`}>{status}</div>;
-};
 
 export const UsersTable = ({ userData }: { userData: User[] }) => {
   // Pagination configuration
@@ -91,21 +85,7 @@ export const UsersTable = ({ userData }: { userData: User[] }) => {
           </thead>
           <tbody>
             {currentItems.map((user) => {
-              return (
-                <tr key={user.id}>
-                  <td>{user.organization}</td>
-                  <td>{user.f_name}</td>
-                  <td>{user.email}</td>
-                  <td>{user.phone}</td>
-                  <td>{formatDate(user.joined)}</td>
-                  <td>
-                    <UserStatus status={user.status} />
-                  </td>
-                  <td>
-                    <EllipsisVertical />
-                  </td>
-                </tr>
-              );
+              return <UserItem key={user.id} user={user} />;
             })}
           </tbody>
         </table>
