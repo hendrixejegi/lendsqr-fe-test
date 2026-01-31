@@ -48,6 +48,7 @@
 .users-page--table {
   @extend %user-page-box;
   padding-inline: 30px;
+  overflow-x: scroll;
 }
 
 table {
